@@ -7,20 +7,29 @@ class Track extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			isRemoval: true
-		}
-
 		this.renderAction = this.renderAction.bind(this);
+		this.addTrack = this.addTrack.bind(this);
+		this.removeTrack = this.removeTrack.bind(this);
 	};
 
+// conditionally render something - if the onAdd method has been called, the plus sign will be displayed
+// and the addTrack method will be called
+// Then call the method in the element of the page
 	renderAction() {
-		if(this.state.isRemoval) {
-			return <a className="Track-action">+</a>
+		if(this.props.onAdd) {
+			return <a className="Track-action" onClick={this.addTrack}>+</a>
 		}
 		else {
-			return <a className="Track-action">-</a>
+			return <a className="Track-action" onClick={this.removeTrack}>-</a>
 		}
+	}
+
+	addTrack(){
+		this.props.onAdd(this.props.track);
+	}
+
+	removeTrack(){
+		this.props.onRemove(this.props.track);
 	}
 
 	render() {
@@ -30,7 +39,7 @@ class Track extends React.Component {
     		<h3>{this.props.track.name}</h3>
     <p>{this.props.track.artist} | {this.props.track.album}</p>
   </div>
-  <a className="Track-action">+</a>
+  {this.renderAction()}
 </div>
 			);
 	}
