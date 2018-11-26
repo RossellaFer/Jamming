@@ -12,41 +12,41 @@ class App extends Component {
     super(props);
     this.state = {
       searchResults: [
-        {
-          name: "Track 1",
-          artist: "Artist 1",
-          album: "Album 1",
-          id: 1
-        },
-        {
-          name: "Track 2",
-          artist: "Artist 2",
-          album: "Album 2",
-          id: 2,
-        },
-        {
-          name: "Track 3",
-          artist: "Artist 3",
-          album: "Album 3",
-          id: 3
-         }
+        // {
+        //   name: "Track 1",
+        //   artist: "Artist 1",
+        //   album: "Album 1",
+        //   id: 1
+        // },
+        // {
+        //   name: "Track 2",
+        //   artist: "Artist 2",
+        //   album: "Album 2",
+        //   id: 2,
+        // },
+        // {
+        //   name: "Track 3",
+        //   artist: "Artist 3",
+        //   album: "Album 3",
+        //   id: 3
+        //  }
        ],
        playlistName: "My playlist",
        playlistTracks: [
-         {
-           name: "Playlist Track 1",
-           artist: "Artist 1",
-           album: "Album 1",
-           id: 4,
-           uri: "spotify:track:0ynF2svLpsCqkfcWwG03eo"
-         },
-         {
-           name: "Playlist Track 2",
-           artist: "Artist 2",
-           album: "Album 2",
-           id: 5,
-           uri: "spotify:track:6HIM6FrIlHYCoPlKkDtgXn"
-         }
+         // {
+         //   name: "Playlist Track 1",
+         //   artist: "Artist 1",
+         //   album: "Album 1",
+         //   id: 4,
+         //   uri: "spotify:track:0ynF2svLpsCqkfcWwG03eo"
+         // },
+         // {
+         //   name: "Playlist Track 2",
+         //   artist: "Artist 2",
+         //   album: "Album 2",
+         //   id: 5,
+         //   uri: "spotify:track:6HIM6FrIlHYCoPlKkDtgXn"
+         // }
        ]
   };
   this.addTrack = this.addTrack.bind(this);
@@ -97,12 +97,11 @@ class App extends Component {
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-            <SearchBar />
+            <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
         {/*This displays the search results and allows the user to add to the playlist*/}
             <SearchResults searchResults={this.state.searchResults}
                            onAdd={this.addTrack}
-                           onSearch={this.search}
                            />
                            {/*This displays the playlist tracks and allows the user to remove songs from the playlist*/}
             <Playlist searchResults={this.state.searchResults}

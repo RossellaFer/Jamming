@@ -13,32 +13,38 @@ const Spotify = {
     let url = window.location.href;
     const foundAccessToken = url.match(/access_token=([^&]*)/);
     const foundExpiresIn = url.match(/expires_in=([^&]*)/);
-    console.log(foundAccessToken);
-    if(url.indexOf(foundAccessToken) > -1 && url.indexOf(foundExpiresIn)) {
+
+    if(foundAccessToken && foundExpiresIn) {
           access_token = foundAccessToken[1];
           let expires_in = Number(foundExpiresIn[1]);
           window.setTimeout(() => foundAccessToken = '', foundExpiresIn * 1000);
           window.history.pushState('Access Token', null, '/');
+          return access_token;
     }
     else {
       window.location = spotifyUrl;
+      return access_token;
     }
   },
 
 search(searchTerm) {
+  const access_token = Spotify.getAccessToken();
   const endpoint = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
   return fetch(endpoint, {headers: {
     Authorization: `Bearer ${access_token}`
   }}).then(response => {
     return response.json();
   }).then(jsonResponse => {
-    return jsonResponse.map(track => ({
+    if(!jsonResponse.tracks){
+        return [];
+      }
+    return jsonResponse.tracks.items.map(track => ({
       id: track.id,
       name: track.name,
-      artist: track.artist[0].name,
+      // artist: track.artist[0].name,
       album: track.album.name,
-      URI: track.uri
-    }))
+      uri: track.uri
+    }));
   })
 }
 
