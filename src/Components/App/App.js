@@ -11,43 +11,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-        // {
-        //   name: "Track 1",
-        //   artist: "Artist 1",
-        //   album: "Album 1",
-        //   id: 1
-        // },
-        // {
-        //   name: "Track 2",
-        //   artist: "Artist 2",
-        //   album: "Album 2",
-        //   id: 2,
-        // },
-        // {
-        //   name: "Track 3",
-        //   artist: "Artist 3",
-        //   album: "Album 3",
-        //   id: 3
-        //  }
-       ],
+      searchResults: [],
        playlistName: "My playlist",
-       playlistTracks: [
-         // {
-         //   name: "Playlist Track 1",
-         //   artist: "Artist 1",
-         //   album: "Album 1",
-         //   id: 4,
-         //   uri: "spotify:track:0ynF2svLpsCqkfcWwG03eo"
-         // },
-         // {
-         //   name: "Playlist Track 2",
-         //   artist: "Artist 2",
-         //   album: "Album 2",
-         //   id: 5,
-         //   uri: "spotify:track:6HIM6FrIlHYCoPlKkDtgXn"
-         // }
-       ]
+       playlistTracks: []
   };
   this.addTrack = this.addTrack.bind(this);
   this.removeTrack = this.removeTrack.bind(this);
@@ -82,6 +48,12 @@ class App extends Component {
   savePlaylist() {
     const trackURIs = [];
     this.state.playlistTracks.forEach(track => trackURIs.push(track.uri));
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      this.setState({
+        playlistTracks: []
+      });
+      this.updatePlaylistName("My Playlist");
+    })
     return trackURIs;
   }
 
