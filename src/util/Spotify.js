@@ -32,7 +32,7 @@ const Spotify = {
     if(!playlistName && !trackURIs) {
       return;
     }
-    const userAccessToken = Spotify.getAccessToken();
+    Spotify.getAccessToken();
     const headers = {Authorization: `Bearer ${userAccessToken}`};
     let userID = '';
     const userEndpoint = "https://api.spotify.com/v1/me";
@@ -68,7 +68,7 @@ const Spotify = {
   },
 
 search(searchTerm) {
-  const access_token = Spotify.getAccessToken();
+  Spotify.getAccessToken();
   const endpoint = `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`;
   return fetch(endpoint, {headers: {
     Authorization: `Bearer ${access_token}`
