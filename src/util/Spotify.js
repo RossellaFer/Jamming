@@ -33,7 +33,7 @@ const Spotify = {
       return;
     }
     Spotify.getAccessToken();
-    const headers = {Authorization: `Bearer ${userAccessToken}`};
+    const headers = {Authorization: `Bearer ${access_token}`};
     let userID = '';
     const userEndpoint = "https://api.spotify.com/v1/me";
 
